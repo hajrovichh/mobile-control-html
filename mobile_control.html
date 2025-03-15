@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.io Mobile Control</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Mobile Control</h1>
+    <button id="start">Start Monitoring</button>
+    <button id="stop">Stop Monitoring</button>
+    <button id="getStatus">Get Status</button>
+    <pre id="status"></pre>
+
+    <script>
+        const socket = io('http://77.77.248.87:4001'); // Use your public IP
+
+        document.getElementById('start').onclick = () => {
+            socket.emit('start');
+        };
+
+        document.getElementById('stop').onclick = () => {
+            socket.emit('stop');
+        };
+
+        document.getElementById('getStatus').onclick = () => {
+            socket.emit('getStatus');
+        };
+
+        socket.on('statusUpdate', (data) => {
+            document.getElementById('status').innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>
